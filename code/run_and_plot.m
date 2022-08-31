@@ -34,7 +34,7 @@ tot_time = [time1;time2];
 tot_time = tot_time/3600;
 tot_sol = [solution1;solution2];
  %% heatmap    
- load("Results\Analysis_lsq.mat",'phi0mat')
+ load("../Results\Analysis_lsq.mat",'phi0mat')
  figure(1)
  k=heatmap(phi0mat,'FontSize',13)
  k.Position=[0.140 0.1400 0.65 0.8];
@@ -136,7 +136,7 @@ grid on
 hold off
 
 %% Full flux
-load Results\test_spatial.mat
+load ../Results\test_spatial.mat
 
 %%
 tot_sol_phi = tot_sol(:,1:3:60);

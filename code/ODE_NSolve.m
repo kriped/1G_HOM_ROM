@@ -1,6 +1,6 @@
 function [time, state_values] = ODE_NSolve(IC,tspan,opts,m)
 
-load 'input\ROM_input.mat' sigmaX sigmaE XS_HOMO gammaI gammaX lambdaI lambdaX keff bsq nu v drdp kappa EMI phi0mat X0mat power
+load '../input\ROM_input.mat' sigmaX sigmaE XS_HOMO gammaI gammaX lambdaI lambdaX keff bsq nu v drdp kappa EMI phi0mat X0mat power
 
 bsqmn = bsq;
 bsq0 = bsq(1);
