@@ -1,5 +1,5 @@
-clear all; close all; clc;
-cd('C:\Users\kriped\Documents\XEROM\Matlab code\ROM_Analytical\')
+clear variables; close all; clc;
+cd('C:\Users\kriped\Chalmers\Christophe Demaziere - XEROM\Matlab code\1G_HOM_REAL_MAIN_SC')
 load input\Nodal_Values.mat
 %%
 load input\RESULTS.mat
@@ -23,6 +23,8 @@ FLX_CON = FLX1+FLX2; %Condensed Flux
 
 MOD_CON = MOD1+MOD2; % Condesed Modes
 
+sigmaX = 2.7000e-18;
+XS_CON.sigmaX = sigmaX*FLX2./FLX_CON;
 
 %Replace NaN with zeroes 
 
@@ -31,7 +33,8 @@ XS_CON.NF(isnan(XS_CON.NF))=0;
 XS_CON.STR(isnan(XS_CON.STR))=0;
 XS_CON.KF(isnan(XS_CON.KF))=0;
 XS_CON.D(isnan(XS_CON.D))=0;
+XS_CON.sigmaX(isnan(XS_CON.sigmaX))=0;
 FLX_CON(isnan(FLX_CON))=0;
 MOD_CON(isnan(MOD_CON))=0;
 
-save('Temp/Condensed_output.mat')
+save('temp/Condensed_output.mat')

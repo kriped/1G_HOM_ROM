@@ -1,5 +1,7 @@
 %% Initialise
 clc; clear; close all;
+cd('C:\Users\kriped\Chalmers\Christophe Demaziere - XEROM\Matlab code\1G_HOM_REAL_MAIN_SC')
+addpath('code')
 ni = 1; ne= 20; n= ne-ni+1;
 ExMode = 2;
 exmodeidx = (ExMode-1)*3+1;
@@ -34,7 +36,7 @@ tot_time = [time1;time2];
 tot_time = tot_time/3600;
 tot_sol = [solution1;solution2];
  %% heatmap    
- load("../Results\Analysis_lsq.mat",'phi0mat')
+ load("Results\Analysis_lsq.mat",'phi0mat')
  figure(1)
  k=heatmap(phi0mat,'FontSize',13)
  k.Position=[0.140 0.1400 0.65 0.8];
@@ -117,12 +119,10 @@ tot_sol = [solution1;solution2];
 % 
 %% article plot suggestion 2
 figure(2)
-
-
 yyaxis left
 plot(tot_time,tot_sol(:,([2,15]-1)*3+1))
-ylim([-1.3E-7 , 1E-7])
-ylabel("Amplitude [AU]",'Fontsize', 14)
+%ylim([-1.3E-7 , 1E-7])
+ylabel("Amplitude [AU]")
 yyaxis right
 plot(tot_time,tot_sol(:,([1,7,12]-1)*3+1))
 ylim([-1.2E-6 , 2.6E-6])
@@ -135,8 +135,28 @@ xlim([0 70]);
 grid on
 hold off
 
+
+figure(4)
+plot(tot_time,tot_sol(:,([1, 2, 3, 4]-1)*3+1))
+%ylim([-5E-8 , 5E-7])
+xlim([0 1])
+ylabel("P_{m}(t) Amplitudes (cm^{-2}*s^{-1})",'Fontsize', 14)
+legend(["Eq mode", "ax mode", "rad mode 1", "rad mode 2"],"Location","best")
+xlabel("Time [h]",'Fontsize', 14)
+grid on
+
+
+figure(5)
+plot(tot_time,tot_sol(:,([1, 2, 3, 4]-1)*3+1))
+%ylim([-1.3E-7 , 1E-7])
+xlim([0 70])
+ylabel("P_{m}(t) Amplitudes (cm^{-2}*s^{-1})",'Fontsize', 14)
+legend(["Eq mode", "ax mode", "rad mode 1", "rad mode 2"],"Location","best")
+xlabel("Time [h]",'Fontsize', 14)
+grid on
+hold off
 %% Full flux
-load ../Results\test_spatial.mat
+load Results\test_spatial.mat
 
 %%
 tot_sol_phi = tot_sol(:,1:3:60);
@@ -161,7 +181,7 @@ plot(tot_time,temp_spatial_point_1)
 xlabel("Time [h]", 'Fontsize', 14)
 ylabel("Normalized neutron flux [AU]",'Fontsize', 14)
 %title('Time signal sa in the reactor')
-ylim([-1.1E-6,5E-7])
+ylim([-7E-7,5E-7])
 xlim([0 70]);
 grid on
 % %% Plot 4-11

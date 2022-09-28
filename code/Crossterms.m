@@ -1,4 +1,5 @@
-load("C:\Users\kriped\Documents\XEROM\Matlab code\ROM_Analytical_SC\input\input_data.mat")
+cd('C:\Users\kriped\Chalmers\Christophe Demaziere - XEROM\Matlab code\1G_HOM_REAL_MAIN_SC')
+load('C:\Users\kriped\Chalmers\Christophe Demaziere - XEROM\Matlab code\1G_HOM_REAL_MAIN_SC\input\input_data.mat')
 
 %Should crossterms be included (1 = Yes 0 = No)
 crossterms = 1;
@@ -23,21 +24,21 @@ EMI = sum(phi(:,:,:,1)*nodevol,'all'); % Calculate the Equlibrium mode integral 
 
  if crossterms == 1 % Include all cross terms
      
-%     for m = 1:nmodes
-%         norm_m = sum(phi(:,:,:,m).^2*nodevol,'all'); % Calculate normalisation term m
-%         for n = 1:m
-%             norm_n = sum(phi(:,:,:,n).^2*nodevol,'all'); % Calculate opposite normalistation term
-%             phiint = sum(phieq(:,:,:).*phi(:,:,:,m).*phi(:,:,:,n)*nodevol,'all'); % Calculate phi crossterm
-%             phi0mat(n,m) = phiint/norm_n; % Normalise cross term in m 
-%             phi0mat(m,n) = phiint/norm_m; % Normalise cross term in n
-%             X0int = sum(Xeq(:,:,:).*phi(:,:,:,m).*phi(:,:,:,n)*nodevol,'all'); % Calculate X cross terms
-%             X0mat(n,m) = X0int/norm_n; % Normalise crossterms in m
-%             X0mat(m,n) = X0int/norm_m; % Normalise crosterms in n
-%         end
-     end
+    for m = 1:nmodes
+        norm_m = sum(phi(:,:,:,m).^2*nodevol,'all'); % Calculate normalisation term m
+        for n = 1:m
+            norm_n = sum(phi(:,:,:,n).^2*nodevol,'all'); % Calculate opposite normalistation term
+            phiint = sum(phieq(:,:,:).*phi(:,:,:,m).*phi(:,:,:,n)*nodevol,'all'); % Calculate phi crossterm
+            phi0mat(n,m) = phiint/norm_n; % Normalise cross term in m 
+            phi0mat(m,n) = phiint/norm_m; % Normalise cross term in n
+            X0int = sum(Xeq(:,:,:).*phi(:,:,:,m).*phi(:,:,:,n)*nodevol,'all'); % Calculate X cross terms
+            X0mat(n,m) = X0int/norm_n; % Normalise crossterms in m
+            X0mat(m,n) = X0int/norm_m; % Normalise crosterms in n
+        end
+    end
     X0m = sum(X0mat); % Perform sum of X crossterms (Collapse collumns)
     phi0m = sum(phi0mat); %Perform sum of phi crossterms (Collapse collumns)
-else % Include cross terms
+ else % Include cross terms
     X0m = zeros(1:length(nmodes)); % Initialise vectors
     phi0m = zeros(1:length(nmodes));  % Initialise vectors
     for m = 1:nmodes
