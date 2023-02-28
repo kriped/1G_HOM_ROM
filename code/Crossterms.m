@@ -3,18 +3,22 @@ load('C:\Users\kriped\Chalmers\Christophe Demaziere - XEROM\Matlab code\1G_HOM_R
 
 %Should crossterms be included (1 = Yes 0 = No)
 crossterms = 1;
-V = pi*radius^2*height;
 nodevol = cellvol;
-keff = XS_HOMO.NF/(XS_HOMO.D*bsq(1)+XS_HOMO.SA); % calculate keff
+ % calculate keff
+keff = XS_HOMO.NF/(XS_HOMO.D*bsq(1)+XS_HOMO.SA);
 XS_HOMO.SE = XS_HOMO.NF/keff-XS_HOMO.SA;
 
 phiInt0 = sum(phi(:,:,:,1)*nodevol,'all'); % calculate the volume integral over the fundamental mode
+%XS_HOMO.NF/nu*phiInt0
 
-PS = power*keff/(phiInt0*XS_HOMO.KF); % calculate the power scaling
+PS = reactor_power*keff/(phiInt0*XS_HOMO.KF); % calculate the power scaling
 
 phieq = phi(:,:,:,1).*PS; % Apply power scaling to the fundamental mode (cm^-2*s^-1)
+%phieq_old =phi(:,:,:,1).*PS_old;
+phieq_average = nodevol*sum(phieq,'all')/V;
+%phieq_old_average = nodevol*sum(phieq_old,'all')/V
 Xeq = (gammaI+gammaX).*(XS_HOMO.NF/nu)*phieq./(keff.*(lambdaX+sigmaX*phieq)); % Calculate the equilibrium xenon concentration (cm^-3)
-
+Xeq_average = nodevol *sum(Xeq,'all')/V;
 
 phi0mat = zeros(nmodes);% Initialise vectors
 X0mat = zeros(nmodes); % Initialise vectors
@@ -51,6 +55,6 @@ EMI = sum(phi(:,:,:,1)*nodevol,'all'); % Calculate the Equlibrium mode integral 
 end
 
 
-clear   phieq Xeq PS phiInt0 phiint X0int norm n m DF Lambda phi modes
+%clear   phieq Xeq PS phiInt0 phiint X0int norm n m DF Lambda modes
 
 save('input\ROM_input.mat')

@@ -1,9 +1,9 @@
-function [Mode,Bsq,cellvol] = HOMO_Reactor_MODE_radial(n,m,ii,r,h,ncells) 
+function [Mode,Bsq] = HOMO_Reactor_MODE_radial(n,m,ii,r,h,ncells) 
 % Create cartesian space
 
-cellarea = r^2/ncells^2;
-cellheight = h/ncells;
-cellvol = cellarea*cellheight;
+% cellarea = r^2/ncells^2;
+% cellheight = h/ncells;
+% cellvol = cellarea*cellheight;
 
 % x = zeros(1,ncells);
 % y = zeros(1,ncells);

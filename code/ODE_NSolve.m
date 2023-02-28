@@ -1,15 +1,14 @@
 function [time, state_values] = ODE_NSolve(IC,tspan,opts,m)
 
-load 'input\ROM_input.mat' sigmaX sigmaE XS_HOMO gammaI gammaX lambdaI lambdaX keff bsq nu v drdp kappa EMI phi0mat X0mat power
+load 'C:/Users/kriped/Chalmers/Christophe Demaziere - XEROM/Matlab code/1G_HOM_REAL_MAIN_SC/input/ROM_input.mat' sigmaX sigmaE XS_HOMO gammaI gammaX lambdaI lambdaX keff bsq nu v kappa EMI phi0mat X0mat reactor_power FB_1G
 
 bsqmn = bsq;
 bsq0 = bsq(1);
 phi0mn = phi0mat;
 X0mn = X0mat;
-drdp = -35E-3/power;
-%drdp = -15e-3/power; 
-FB = drdp*(XS_HOMO.SA+XS_HOMO.D*bsq0)*kappa*EMI*XS_HOMO.NF/nu;
+%drdp = -35E-3/reactor_power;
 
+nu = 2.44;
 f = FunctionGen(m);
 
 fhandle = eval(['@(t,s)[' f ']']);

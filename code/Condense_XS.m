@@ -1,9 +1,5 @@
-clear variables; close all; clc;
-cd('C:\Users\kriped\Chalmers\Christophe Demaziere - XEROM\Matlab code\1G_HOM_REAL_MAIN_SC')
-load input\Nodal_Values.mat
-%%
-load input\RESULTS.mat
 
+%%
 nmode = length(FLX1(1,1,1,:));
 
 XS_CON.SA= (XS.SA1.*FLX1+XS.SA2.*FLX2)./(FLX1+FLX2);% Condesed Absorbtion XS
@@ -25,16 +21,18 @@ MOD_CON = MOD1+MOD2; % Condesed Modes
 
 sigmaX = 2.7000e-18;
 XS_CON.sigmaX = sigmaX*FLX2./FLX_CON;
+v1 = 2E9; % fast neutron velocity in cm/s 
+v2 = 2.2E5; % thermal neutron velocity in cm/s 
+XS_CON.v = (1/v1*FLX1+1/v2*FLX2)./FLX_CON;
+
 
 %Replace NaN with zeroes 
-
 XS_CON.SA(isnan(XS_CON.SA))=0;
 XS_CON.NF(isnan(XS_CON.NF))=0;
 XS_CON.STR(isnan(XS_CON.STR))=0;
 XS_CON.KF(isnan(XS_CON.KF))=0;
 XS_CON.D(isnan(XS_CON.D))=0;
 XS_CON.sigmaX(isnan(XS_CON.sigmaX))=0;
+XS_CON.v(isnan(XS_CON.v))=0;
 FLX_CON(isnan(FLX_CON))=0;
 MOD_CON(isnan(MOD_CON))=0;
-
-save('temp/Condensed_output.mat')
